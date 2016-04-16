@@ -5,14 +5,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.util.SparseArray;
+import android.widget.ExpandableListView;
 
 public class MostrarActivity extends AppCompatActivity {
 
-    private ListView lista;
+    //private ListView lista;
     private DataHelper dataHelper;
+    private ExpandableListView lista;
+    private Cursor c;
+
+    SparseArray<Group> groups = new SparseArray<Group>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,10 +24,32 @@ public class MostrarActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        cargar();
+
+        dataHelper = new DataHelper(this,"VENTAS",null,1);
+        SQLiteDatabase db=dataHelper.getReadableDatabase();
+        c = db.rawQuery("SELECT Descripcion, Valor, Descuento, Fecha, Nombre_Cliente FROM Boutique",null);
+        createData();
+        lista = (ExpandableListView) findViewById(R.id.lista);
+        MyAdapter adapter = new MyAdapter(this,groups);
+        lista.setAdapter(adapter);
+
     }
 
-    public void cargar(){
+    public void createData() {
+        int i=0;
+        if(c.moveToFirst()){
+            do{
+                Group group = new Group(c.getString(0),c.getDouble(1),c.getString(2),c.getString(3),c.getString(4));
+                groups.append(i, group);
+                i++;
+            }while (c.moveToNext());
+        }
+
+
+        }
+
+    //metod para mostrar en un listView normal
+    /*public void cargar(){
         dataHelper = new DataHelper(this,"VENTAS",null,1);
         SQLiteDatabase db=dataHelper.getReadableDatabase();
         if(db != null){
@@ -47,5 +73,5 @@ public class MostrarActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"No hay datos de las ventas",Toast.LENGTH_SHORT).show();
         }
     }
-
+    */
 }

@@ -30,7 +30,38 @@
         <activity
             android:name=".addActivity"
             android:label="@string/title_activity_add"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActualizarActivity"
+            android:label="@string/title_activity_actualizar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".InfoActivity"
+            android:label="@string/title_activity_info"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mundo.laboutique.MainActivity" />
+        </activity>
+        <activity
+            android:name=".BuscarActivity"
+            android:label="@string/title_activity_buscar"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mundo.laboutique.MainActivity" />
+        </activity>
+        <activity
+            android:name=".EliminarActivity"
+            android:label="@string/title_activity_eliminar"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mundo.laboutique.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
